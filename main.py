@@ -1,11 +1,15 @@
 from command import Command, run_command
 import configparser
 
+from locale import LocaleManager
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+locale_manager = LocaleManager()
+
 if __name__ == '__main__':
-    print("Hello! Here what we've got:")
+    print(locale_manager.get_localized_string('greet'))
     Command.print_all_commands()
     command_id = None
     while True:

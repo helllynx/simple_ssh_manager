@@ -1,0 +1,8 @@
+{
+    "ru":{
+        "greet":"Привет! Пожалуйста выберите следующую команду: "
+    },
+    "us":{
+        "greet":"Hi! Please choose one of next commands: "
+    }
+}
