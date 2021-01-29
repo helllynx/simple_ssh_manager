@@ -11,9 +11,9 @@ if __name__ == '__main__':
         try:
             command_id = int(input('> '))
             assert command_id >= 0 and Command.get_func_by_id(command_id)
-            break
+            if run_command(command_id) == Command.EXIT:
+                break
         except:
             print('Please write number of listed functions!')
             Command.print_all_commands()
 
-    run_command(command_id)
