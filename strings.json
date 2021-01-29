@@ -1,8 +1,10 @@
 {
     "ru":{
-        "greet":"Привет! Пожалуйста выберите следующую команду: "
+        "greet":"Привет! Пожалуйста выберите следующую команду:",
+        "choose_ssh": "Выберите одно из возможных подключений:"
     },
     "us":{
-        "greet":"Hi! Please choose one of next commands: "
+        "greet":"Hi! Please choose one of next commands:",
+        "choose_ssh": "Please choose one of next connections:"
     }
 }

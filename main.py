@@ -1,17 +1,12 @@
-from command import Command, run_command
-import configparser
-
-from locale import LocaleManager
-
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-locale_manager = LocaleManager()
+from app import locale_manager
+from app.command import Command, run_command
 
 if __name__ == '__main__':
     print(locale_manager.get_localized_string('greet'))
+
     Command.print_all_commands()
     command_id = None
+
     while True:
         try:
             command_id = int(input('> '))

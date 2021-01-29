@@ -10,7 +10,7 @@ class Locale(Enum):
 class LocaleManager:
 
     def __init__(self):
-        with open('strings.json', 'r+') as file:
+        with open('strings.json', 'r') as file:
             data = file.read()
         self.json = json.loads(data)
         self.locale = Locale.US

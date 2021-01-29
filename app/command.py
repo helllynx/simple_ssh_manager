@@ -1,5 +1,8 @@
 from enum import Enum
 
+from app import locale_manager
+from app.storage import ask_info_for_new_ssh_entry, print_all_saved_ssh
+
 
 class Command(Enum):
     LIST = 0
@@ -22,8 +25,10 @@ class Command(Enum):
 
 def run_command(command_id: int):
     if command_id == Command.LIST.value:
-        print('LIST')
+        print_all_saved_ssh()
     elif command_id == Command.ADD.value:
-        print('ADD')
+        ask_info_for_new_ssh_entry()
     elif command_id == Command.CONNECT.value:
-        print('CONNECT')
+        print(locale_manager.get_localized_string('choose_ssh'))
+        print_all_saved_ssh()
+
