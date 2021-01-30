@@ -1,7 +1,7 @@
 import json
 
 from app import database_path
-from app.ssh import open_console_with_connection
+from app.ssh import open_console_with_connection, create_command_from_record
 
 
 def print_all_saved_ssh():
@@ -9,9 +9,11 @@ def print_all_saved_ssh():
     for i, (k, v) in enumerate(data.items()):
         print(f"{i}. {k}: {v['host']}")
 
+
 def get_connection_by_id(id: int):
     data = load_all_ssh_entries()
     return data[list(data.keys())[id]]
+
 
 def load_all_ssh_entries():
     with open(database_path, 'r') as file:
@@ -21,27 +23,47 @@ def load_all_ssh_entries():
     except:
         return {}
 
-def create_command_from_record(record: str):
-    print(f"ssh {record['user']}@{record['host']} -p {record['port']}")
-    return f"ssh {record['user']}@{record['host']} -p {record['port']}"
 
 def ask_info_for_new_ssh_entry():
     alias = input("alias: ")
     user = input("user: ")
     host_ip = input("host ip: ")
-    port = int(input("port: "))
+    port = input("port: ")
     password = input("password (or empty if using keys): ")
     ssh_key = input("ssh_key path: ")
 
     save_ssh_entry(alias, user, host_ip, port, password, ssh_key)
 
 
-def save_ssh_entry(alias: str, user: str, host_ip: str, port: int, password: str = None, ssh_key: str = None):
+# def ask_info_for_edit_ssh_entry():
+#     user = input("user: ")
+#     host_ip = input("host ip: ")
+#     port = int(input("port: "))
+#     password = input("password (or empty if using keys): ")
+#     ssh_key = input("ssh_key path: ")
+#
+#     save_ssh_entry(alias, user, host_ip, port, password, ssh_key)
+
+
+def delete_ssh_entry():
+    id = int(input("id > "))
     data = load_all_ssh_entries()
+    key = list(data.keys())[id]
+    del data[key]
+
+    with open(database_path, 'w') as file:
+        file.write(json.dumps(data))
+
+
+def save_ssh_entry(alias: str, user: str, host: str, port: str, password: str = None, ssh_key: str = None):
+    data = load_all_ssh_entries()
+
+    if not port:
+        port = 22
 
     data[alias] = {
         "user": user,
-        "host": host_ip,
+        "host": host,
         "port": port,
         "password": password,
         "ssh_key": ssh_key

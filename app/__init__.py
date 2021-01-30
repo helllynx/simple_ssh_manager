@@ -1,4 +1,5 @@
 import configparser
+
 from app.locale import LocaleManager
 
 config = configparser.ConfigParser()
