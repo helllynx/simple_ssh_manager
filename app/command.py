@@ -31,6 +31,5 @@ def run_command(command_id: int):
         print(locale_manager.get_localized_string('choose_ssh'))
         print_all_saved_ssh()
         ask_and_open_new_connection()
-        return Command.EXIT
     elif command_id == Command.EXIT.value:
         return Command.EXIT
