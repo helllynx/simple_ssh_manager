@@ -4,7 +4,7 @@ from app.utils import clear_terminal
 
 if __name__ == '__main__':
     clear_terminal()
-    print(locale_manager.get_localized_string('greet'))
+    print(locale_manager.get_localized_string('greet')+'\n')
 
     while True:
         try:
