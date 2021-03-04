@@ -1,10 +1,24 @@
 {
     "ru":{
         "greet":"Привет! Пожалуйста выберите команду:",
-        "choose_ssh": "Выберите одно из возможных подключений:"
+        "choose_ssh": "Выберите одно из возможных подключений:",
+        "commands": [
+            {"list": "вывести список подключений"},
+            {"new": "добавить новое"},
+            {"delete": "удалить"},
+            {"connect": "подключиться"},
+            {"exit": "выход"}
+        ]
     },
     "us":{
         "greet":"Hi! Please choose one of next commands:",
-        "choose_ssh": "Please choose one of next connections:"
+        "choose_ssh": "Please choose one of next connections:",
+        "commands": [
+            {"list": "show all"},
+            {"new": "add new"},
+            {"delete": "delete"},
+            {"connect": "connect"},
+            {"exit": "exit"}
+        ]
     }
 }

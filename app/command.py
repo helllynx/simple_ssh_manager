@@ -1,27 +1,33 @@
-class Command:
-    def __init__(self, command: str, short_command: str, description: str):
-        self.command = command
-        self.short_command = short_command
-        self.description = description
-
-    def __str__(self):
-        return f"-{self.short_command} ({self.command}) {self.description}"
+from enum import Enum
 
 
-COMMANDS = [
-    Command('list', 'l', 'Show all'),
-    Command('new', 'n', 'Add new'),
-    Command('delete', 'd', 'Delete'),
-    Command('connect', 'c', 'Connect'),
-    Command('exit', 'e', 'Exit'),
-]
+# class Commands:
+#     def __init__(self):
+#         self.COMMANDS = Enum('Command', ['LIST', 'ADD', 'DELETE', 'CONNECT', 'EXIT'], start=0)
+#         self._localized_commands = locale_manager.get_localized_commands()
+#         self.commands =
+from app import locale_manager
 
 
-# Command = Enum('Command', ['List all connections', 'Add new connection', 'Delete connection', 'Connect', 'Exit'], start=0)
+class Commands(Enum):
+    LIST = 'list'
+    ADD = 'add'
+    DELETE = 'delete'
+    CONNECT = 'connect'
+    EXIT = 'exit'
 
+    def __init__(self, f):
+        self
+        pass
+
+    def get_localized_descriptions_list(self, id: int):
+        return [cmd for cmd in locale_manager.get_localized_commands()]
+
+Commands(1)
 
 def get_all_commands():
     return [command.description for command in COMMANDS]
+
 
 def get_short_names():
     return [command.short_command for command in COMMANDS]

@@ -18,3 +18,6 @@ class LocaleManager:
 
     def get_localized_string(self, string_id: str):
         return self.text[string_id]
+
+    def get_localized_commands(self):
+        return self.text['commands']
