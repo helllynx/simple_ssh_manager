@@ -1,6 +1,6 @@
 import json
 
-from app import database_path
+from app import database_path, locale_manager
 from app.ssh import open_console_with_connection, create_command_from_record
 
 
@@ -74,6 +74,9 @@ def save_ssh_entry(alias: str, user: str, host: str, port: str, password: str = 
 
 
 def ask_and_open_new_connection():
-    connection_id = int(input("> "))
-    command = create_command_from_record(get_connection_by_id(connection_id))
+    print(locale_manager.get_localized_string('break'))
+    connection_id = input("> ")
+    if connection_id == 'q':
+        return
+    command = create_command_from_record(get_connection_by_id(int(connection_id)))
     open_console_with_connection(command)

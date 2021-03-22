@@ -1,60 +1,38 @@
 from enum import Enum
-
-
-# class Commands:
-#     def __init__(self):
-#         self.COMMANDS = Enum('Command', ['LIST', 'ADD', 'DELETE', 'CONNECT', 'EXIT'], start=0)
-#         self._localized_commands = locale_manager.get_localized_commands()
-#         self.commands =
 from app import locale_manager
+from app.storage import print_all_saved_ssh, ask_info_for_new_ssh_entry, delete_ssh_entry, ask_and_open_new_connection
 
 
 class Commands(Enum):
-    LIST = 'list'
-    ADD = 'add'
+    NEW = 'new'
     DELETE = 'delete'
     CONNECT = 'connect'
     EXIT = 'exit'
 
-    def __init__(self, f):
-        self
-        pass
+    @staticmethod
+    def get_localized_descriptions_dict():
+        return locale_manager.get_localized_commands()
 
-    def get_localized_descriptions_list(self, id: int):
-        return [cmd for cmd in locale_manager.get_localized_commands()]
-
-Commands(1)
-
-def get_all_commands():
-    return [command.description for command in COMMANDS]
-
-
-def get_short_names():
-    return [command.short_command for command in COMMANDS]
 
 
 def print_all_commands():
-    for i, cn in enumerate(get_all_commands()):
-        print(f'{i}. {cn}')
+    for i, cn in enumerate(Commands.get_localized_descriptions_dict().items()):
+        print(f'{i}. {cn[1]}')
 
 
 def get_func_by_id(id: int):
-    return list(filter(lambda obj: obj.id == id, COMMANDS))
+    return list(Commands)[id]
 
 
-# def run_command(command_id: int):
-#     if command_id == COMMANDS.:
-#         print_all_saved_ssh()
-#     elif command_id == COMMANDS.:
-#         ask_info_for_new_ssh_entry()
-#     elif command_id == COMMANDS.:
-#         delete_ssh_entry()
-#     elif command_id == COMMANDS.:
-#         print(locale_manager.get_localized_string('choose_ssh'))
-#         print_all_saved_ssh()
-#         ask_and_open_new_connection()
-#     elif command_id == COMMANDS.:
-#         return COMMANDS.EXIT
+def run_command(command_name: str):
+    if command_name == Commands.NEW:
+        ask_info_for_new_ssh_entry()
+    elif command_name == Commands.DELETE:
+        delete_ssh_entry()
+    elif command_name == Commands.CONNECT:
+        print(locale_manager.get_localized_string('choose_ssh'))
+        print_all_saved_ssh()
+        ask_and_open_new_connection()
+    elif command_name == Commands.EXIT:
+        return Commands.EXIT
 
-
-print(COMMANDS)
