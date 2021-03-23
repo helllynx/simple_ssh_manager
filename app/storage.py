@@ -1,7 +1,7 @@
 import json
 
 from app import database_path, locale_manager
-from app.ssh import open_console_with_connection, create_command_from_record
+from app.ssh import open_console_with_connection, create_ssh_command_from_record, create_sshfs_command_from_record
 
 
 def print_all_saved_ssh():
@@ -78,5 +78,16 @@ def ask_and_open_new_connection():
     connection_id = input("> ")
     if connection_id == 'q':
         return
-    command = create_command_from_record(get_connection_by_id(int(connection_id)))
+    command = create_ssh_command_from_record(get_connection_by_id(int(connection_id)))
     open_console_with_connection(command)
+
+
+def ask_and_mount_sshfs():
+    print(locale_manager.get_localized_string('break'))
+    connection_id = input("> ")
+    if connection_id == 'q':
+        return
+    command = create_ssh_command_from_record(get_connection_by_id(int(connection_id)))
+    # TODO add call of this command
+    create_sshfs_command_from_record(command)
+

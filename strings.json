@@ -5,6 +5,7 @@
     "break": "Для выхода введите q",
     "commands": {
       "new": "добавить новое",
+      "sshfs": "примонтировать / с помощью SSHFS",
       "delete": "удалить",
       "connect": "подключиться",
       "exit": "выход"
@@ -16,6 +17,7 @@
     "break": "For exit enter q",
     "commands": {
       "new": "add new",
+      "sshfs": "mount / use sshfs",
       "delete": "delete",
       "connect": "connect",
       "exit": "exit"
