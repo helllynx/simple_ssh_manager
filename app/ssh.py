@@ -8,11 +8,13 @@ def open_console_with_connection(ssh_command: str):
 
 
 def create_ssh_command_from_record(record: str):
-    return f"ssh {record['user']}@{record['host']} -p {record['port']}"
+    return f"ssh {record[0]['user']}@{record[0]['host']} -p {record[0]['port']}"
 
 
 # TODO add function to distinguish home folder
 def create_sshfs_command_from_record(record: str):
-    home = "/home/helllynx"
-    mount_directory_path = f"{home}/{sshfs_mount_folder}/{record['']}"
-    return f"sshfs {record['user']}@{record['host']}:/ {mount_directory_path} -p {record['port']}"
+    home = os.path.expanduser('~')
+    mount_directory_path = f"{home}/{sshfs_mount_folder}/{record[1]}"
+    os.makedirs(mount_directory_path)
+    return f"sshfs {record[0]['user']}@{record[0]['host']}:/ {mount_directory_path} -p {record[0]['port']}"
+

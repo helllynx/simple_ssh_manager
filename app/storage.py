@@ -12,7 +12,8 @@ def print_all_saved_ssh():
 
 def get_connection_by_id(id: int):
     data = load_all_ssh_entries()
-    return data[list(data.keys())[id]]
+    key = list(data.keys())[id]
+    return [data[key], key]
 
 
 def load_all_ssh_entries():
@@ -87,7 +88,7 @@ def ask_and_mount_sshfs():
     connection_id = input("> ")
     if connection_id == 'q':
         return
-    command = create_ssh_command_from_record(get_connection_by_id(int(connection_id)))
     # TODO add call of this command
-    create_sshfs_command_from_record(command)
+    command = create_sshfs_command_from_record(get_connection_by_id(int(connection_id)))
+    print(command)
 
