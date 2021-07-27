@@ -1,10 +1,10 @@
 import os
 
-from app import sshfs_mount_folder
+from app import sshfs_mount_folder, system_terminal
 
 
 def open_console_with_connection(ssh_command: str):
-    os.system(f"konsole -e {ssh_command} &")
+    os.system(f"{system_terminal} {ssh_command} &")
 
 
 def create_ssh_command_from_record(record: list):

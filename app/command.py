@@ -1,4 +1,5 @@
 from enum import Enum
+
 from app import locale_manager
 from app.storage import print_all_saved_ssh, ask_info_for_new_ssh_entry, delete_ssh_entry, ask_and_open_new_connection, \
     ask_and_mount_sshfs
@@ -15,7 +16,6 @@ class Commands(Enum):
     def get_localized_descriptions_dict():
         commands_locale = locale_manager.get_localized_commands()
         return [commands_locale[c.value] for c in list(Commands)]
-
 
 
 def print_all_commands():
@@ -42,4 +42,3 @@ def run_command(command_name: str):
         ask_and_open_new_connection()
     elif command_name == Commands.EXIT:
         return Commands.EXIT
-

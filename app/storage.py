@@ -28,13 +28,20 @@ def load_all_ssh_entries():
 
 def ask_info_for_new_ssh_entry():
     alias = input("alias: ")
-    user = input("user: ")
-    host_ip = input("host ip: ")
-    port = input("port: ")
+    user = input("user (root): ")
+    host = input("host: ")
+    port = input("port (22): ")
     password = input("password (or empty if using keys): ")
     ssh_key = input("ssh_key path: ")
 
-    save_ssh_entry(alias, user, host_ip, port, password, ssh_key)
+    save_ssh_entry(
+        alias=alias,
+        user=user,
+        host=host,
+        port=port,
+        password=password,
+        ssh_key=ssh_key
+    )
 
 
 # def ask_info_for_edit_ssh_entry():
@@ -57,11 +64,12 @@ def delete_ssh_entry():
         file.write(json.dumps(data))
 
 
-def save_ssh_entry(alias: str, user: str, host: str, port: str, password: str = None, ssh_key: str = None):
+def save_ssh_entry(alias: str, host: str, port: str = 22, user: str = 'root', password: str = None,
+                   ssh_key: str = None):
     data = load_all_ssh_entries()
 
-    if not port:
-        port = 22
+    if alias in data.keys():
+        raise Exception(f"Entry {alias} already exists")
 
     data[alias] = {
         "user": user,
@@ -91,4 +99,3 @@ def ask_and_mount_sshfs():
         return
     command = create_sshfs_command_from_record(get_connection_by_id(int(connection_id)))
     os.system(f'{command} &')
-
