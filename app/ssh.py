@@ -9,7 +9,7 @@ def open_console_with_connection(ssh_command: str):
 
 def create_ssh_command_from_record(record: list):
     if record[0]['password']:
-        return f"sshpass -p {record[0]['password']} ssh {record[0]['user']}@{record[0]['host']} -p {record[0]['port']}"
+        return f"sshpass -p {record[0]['password']} ssh -o StrictHostKeyChecking=no {record[0]['user']}@{record[0]['host']} -p {record[0]['port']}"
     else:
         return f"ssh {record[0]['user']}@{record[0]['host']} -p {record[0]['port']}"
 
