@@ -3,6 +3,10 @@
     "greet": "Привет! Пожалуйста выберите команду:",
     "choose_ssh": "Выберите одно из возможных подключений:",
     "break": "Для выхода введите q",
+    "empty": "Записей нет",
+    "empty_groups": "Список групп пуст, пожалуста создайте хотя бы одну группу или запись будет сохранена в группу Other",
+    "entity_type": "Что вы хотите создать, ssh соеденение или группу? (s/g)",
+    "group_duplicate": "Группа с таким именем уже существует",
     "commands": {
       "new": "добавить новое",
       "sshfs": "примонтировать / с помощью SSHFS",
@@ -15,6 +19,10 @@
     "greet": "Hi! Please choose one of next commands:",
     "choose_ssh": "Please choose one of next connections:",
     "break": "For exit enter q",
+    "empty": "There is no any data",
+    "empty_groups": "Group list is empty, please add some or your ssh connection will be added to Other group",
+    "entity_type": "What you want to create, ssh entry or group? (s/g)",
+    "group_duplicate": "Group with this name is already exists",
     "commands": {
       "new": "add new",
       "sshfs": "mount / use sshfs",
