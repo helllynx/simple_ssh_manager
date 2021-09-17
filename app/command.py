@@ -1,7 +1,8 @@
 from enum import Enum
 
 from app import locale_manager
-from app.storage import print_all_saved_ssh, ask_info_for_new_ssh_entry, delete_ssh_entry, ask_and_open_new_connection, \
+from app.storage import print_all_saved_ssh, ask_info_for_creating_group_or_connection, delete_ssh_entry, \
+    ask_and_open_new_connection, \
     ask_and_mount_sshfs
 
 
@@ -29,7 +30,7 @@ def get_func_by_id(id: int):
 
 def run_command(command_name: str):
     if command_name == Commands.NEW:
-        ask_info_for_new_ssh_entry()
+        ask_info_for_creating_group_or_connection()
     elif command_name == Commands.DELETE:
         delete_ssh_entry()
     elif command_name == Commands.SSHFS:

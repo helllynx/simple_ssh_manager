@@ -23,7 +23,13 @@ def print_all_groups():
         print(f"{i}. {k}")
 
 
-def get_connection_by_id(id: int):
+def get_connection(group_id: int, connection_id: int):
+    data = load_all_entities()
+    key = list(data.keys())[group_id]
+    return [data[key], key]
+
+
+def get_group_by_id(id: int):
     data = load_all_entities()
     key = list(data.keys())[id]
     return [data[key], key]
@@ -35,11 +41,13 @@ def load_all_entities():
     try:
         return json.loads(data)
     except:
-        return None
+        return {}
 
 
 def create_group():
     group_name = input('group name: ')
+    if not group_name:
+        return create_group()
     data = load_all_entities()
     if group_name in data.keys():
         print(locale_manager.get_localized_string('group_duplicate'))
@@ -59,11 +67,10 @@ def ask_about_group():
     group_id = input("> ")
     if group_id == 'q':
         return
-    data = load_all_entities()
-    print(data.keys())
+    return get_group_by_id(int(group_id))
 
 
-def ask_info_for_new_ssh_entry():
+def ask_info_for_creating_group_or_connection():
     print(locale_manager.get_localized_string('entity_type'))
     entity_type = input('> ')
     if entity_type == 's':
@@ -71,23 +78,34 @@ def ask_info_for_new_ssh_entry():
     elif entity_type == 'g':
         group = create_group()
     else:
-        return ask_info_for_new_ssh_entry()
-    #
-    # alias = input("alias: ")
-    # user = input("user (root): ")
-    # host = input("host: ")
-    # port = input("port (22): ")
-    # password = input("password (or empty if using keys): ")
-    # ssh_key = input("ssh_key path: ")
-    #
-    # save_ssh_entry(
-    #     alias=alias,
-    #     user=user,
-    #     host=host,
-    #     port=port,
-    #     password=password,
-    #     ssh_key=ssh_key
-    # )
+        return ask_info_for_creating_group_or_connection()
+
+    alias = input("alias: ")
+    user = input("user (root): ")
+    host = input("host: ")
+    port = input("port (22): ")
+    password = input("password (or empty if using keys): ")
+    ssh_key = input("ssh_key path: ")
+
+    check_ssh_entry_input(
+        alias=alias,
+        group=group[1],
+        user=user,
+        host=host,
+        port=port,
+        password=password,
+        ssh_key=ssh_key
+    )
+
+    save_ssh_entry(
+        alias=alias,
+        group=group[1],
+        user=user,
+        host=host,
+        port=port,
+        password=password,
+        ssh_key=ssh_key
+    )
 
 
 # def ask_info_for_edit_ssh_entry():
@@ -117,8 +135,9 @@ def save_ssh_entry(alias: str, group: str, host: str, port: str = 22, user: str 
                    ssh_key: str = None):
     data = load_all_entities()
 
-    if alias in data.keys() or [i['host'] for i in data.values()]:
-        raise Exception(f"Entry with {alias} or {host} is already exists")
+    if data[group]:
+        if alias in data.keys() or [i['host'] for i in data.values()]:
+            raise Exception(f"Entry with {alias} or {host} is already exists")
 
     data[group][alias] = {
         "user": user,
@@ -130,6 +149,19 @@ def save_ssh_entry(alias: str, group: str, host: str, port: str = 22, user: str 
 
     save_database(data)
 
+
+def check_ssh_entry_input(alias: str, group: str, host: str, port: str, user: str, password: str,
+                          ssh_key: str):
+    if not alias.isalpha():
+        raise Exception('alias must be alpha')
+    if not host.isalpha():
+        raise Exception('host must be alpha')
+    port = int(port)
+    if not 0 < port < 65000:
+        raise Exception('port must be from 0 to 65000')
+    if ' ' in user:
+        raise Exception('user cant contain spaces')
+    
 
 def ask_and_open_new_connection():
     print(locale_manager.get_localized_string('break'))
